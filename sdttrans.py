@@ -95,7 +95,7 @@ type_maps = {
    },
    NCO_NS: {'label': 'NCO',
       'b': 'int8', 's': 'int16', 'i': 'int32', 'l': 'int32', 'll': 'int64', 'int64': 'int64',
-      'ub': 'uint8', 'us': 'uint16', 'u': 'uint32', 'ui': 'uint32', 'ul': 'int32',
+      'ub': 'uint8', 'us': 'uint16', 'u': 'uint32', 'ui': 'uint32', 'ul': 'uint32',
       'ull': 'uint64', 'uint64': 'uint64',
       'f': 'float32', 'd': 'float64',
       'c': '|S1', 'sng': 'string_',
