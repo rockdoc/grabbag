@@ -1,5 +1,7 @@
 # Copyright (c) 2013, Philip A.D. Bentley
 # All rights reserved.
+# This software is made available under a BSD 3-clause license.
+# Please refer to the accompanying LICENSE.TXT file.
 """
 sdttrans module - scientific data type translator
 
@@ -11,9 +13,6 @@ supported translations. By which is meant that a type translation from grammar X
 is effected as a translation from X to Numpy, then Numpy to Y, thus:
 
 type X => type N => type Y
-
-Author: Phil Bentley
-Date: Jan 2013
 
 As an aide-memoire the names and letter codes of the various NumPy scalar types are given below.
 
@@ -61,9 +60,9 @@ else :
    platform_uint = 'uint32'
 
 if sys.float_info.mant_dig > 24 :
-   platform_float  = 'float64'
+   platform_float = 'float64'
 else :
-   platform_float  = 'float32'
+   platform_float = 'float32'
 
 # Symbolic constants for supported type grammars/ontologies.
 (
@@ -101,7 +100,7 @@ type_maps = {
       'f': 'float32', 'd': 'float64',
       'c': '|S1', 'sng': 'string_',
    },
-   NETCDF3_NS: {'label': 'NETCDF CLASSIC',
+   NETCDF3_NS: {'label': 'NETCDF-3',
       'NC_BYTE': 'int8', 'NC_SHORT': 'int16', 'NC_INT': 'int32', 'NC_LONG': 'int32',
       'NC_FLOAT': 'float32', 'NC_DOUBLE': 'float64', 'NC_CHAR': '|S1',
    },
@@ -138,30 +137,13 @@ def translate(source_type, source_ns, target_ns=NUMPY_NS) :
    """
    Translate source type from the source namespace to the target namespace.
    
-   >>> translate('byte', CDL3_NS)
-   'int8'
-   >>> translate('byte', CDL3_NS, NCML_NS)
-   'byte'
-   >>> translate('ubyte', CDL4_NS, NCO_NS)
-   'ub'
-   >>> translate('short', NCML_NS)
-   'int16'
-   >>> translate('long', NCML_NS, NUMPY_NS)
-   'int32'
-   >>> translate('float', NCML_NS, NETCDF4_NS)
-   'NC_FLOAT'
-   >>> translate('ll', NCO_NS)
-   'int64'
-   >>> translate('int64', NUMPY_NS, NCO_NS)
-   'll'
-   >>> translate('ubyte', CDL3_NS, NCO_NS)
-   Traceback (most recent call last):
-       ...
-   TypeError: Type 'ubyte' is not recognised in source namespace CDL3
-   >>> translate('ui', NCO_NS, NETCDF3_NS)
-   Traceback (most recent call last):
-       ...
-   TypeError: Source type 'ui' has no equivalent in target namespace NETCDF CLASSIC
+   :param source_type: Name of the data type as it's known in the source namespace or grammar.
+   :param source_ns: Symbolic constant (from the choices at the head of this module) identifying the
+      source namespace.
+   :param target_ns: Symbolic constant (from the choices at the head of this module) identifying the
+      target namespace. Since translations to NumPy data types are common, that is the default
+      namespace.
+   :returns: The name of the data type as it's known in the target namespace or grammar.
    """
    assert source_ns in NAMESPACES , "Invalid source namespace"
    assert target_ns in NAMESPACES , "Invalid target namespace"
@@ -197,17 +179,13 @@ def get_numpy_type(source_type, source_ns) :
    specified source type and namespace. The returned type object may be used to create instances
    of that data type, as the following example illustrates:
 
-   np_type = get_numpy_type(source_type, source_ns)
-   x = np_type(value)   # value can be a number of string literal
+   np_type = get_numpy_type('NC_BYTE', NETCDF3_NS)
+   x = np_type(value)   # value can be a number or string literal
 
-   >>> get_numpy_type('real', CDL3_NS)
-   <type 'numpy.float32'>
-   >>> get_numpy_type('ubyte', CDL4_NS)
-   <type 'numpy.uint8'>
-   >>> get_numpy_type('real', NCML_NS)
-   Traceback (most recent call last):
-       ...
-   TypeError: Type 'real' is not recognised in source namespace NCML
+   :param source_type: Name of the data type as it's known in the source namespace or grammar.
+   :param source_ns: Symbolic constant (from the choices at the head of this module) identifying the
+      source namespace.
+   :returns: The NumPy data type object corresponding to the specified input data type name.
    """
    assert source_ns in NAMESPACES , "Invalid source namespace"
    if source_type not in type_maps[source_ns] :
@@ -220,6 +198,44 @@ def get_numpy_type(source_type, source_ns) :
 #---------------------------------------------------------------------------------------------------
 if __name__ == "__main__" :
 #---------------------------------------------------------------------------------------------------
-   """Run the doctests"""
+   """Run some doctests"""
+   __test__ = {
+      "translation_tests" :  """
+         >>> translate('byte', CDL3_NS)
+         'int8'
+         >>> translate('byte', CDL3_NS, NCML_NS)
+         'byte'
+         >>> translate('ubyte', CDL4_NS, NCO_NS)
+         'ub'
+         >>> translate('short', NCML_NS)
+         'int16'
+         >>> translate('long', NCML_NS, NUMPY_NS)
+         'int32'
+         >>> translate('float', NCML_NS, NETCDF4_NS)
+         'NC_FLOAT'
+         >>> translate('ll', NCO_NS)
+         'int64'
+         >>> translate('int64', NUMPY_NS, NCO_NS)
+         'll'
+         >>> translate('ubyte', CDL3_NS, NCO_NS)
+         Traceback (most recent call last):
+             ...
+         TypeError: Type 'ubyte' is not recognised in source namespace CDL3
+         >>> translate('ui', NCO_NS, NETCDF3_NS)
+         Traceback (most recent call last):
+             ...
+         TypeError: Source type 'ui' has no equivalent in target namespace NETCDF-3
+      """,
+      "numpy_type_tests": """
+         >>> get_numpy_type('real', CDL3_NS)
+         <type 'numpy.float32'>
+         >>> get_numpy_type('ubyte', CDL4_NS)
+         <type 'numpy.uint8'>
+         >>> get_numpy_type('real', NCML_NS)
+         Traceback (most recent call last):
+             ...
+         TypeError: Type 'real' is not recognised in source namespace NCML
+      """
+   }
    import doctest
    doctest.testmod()
