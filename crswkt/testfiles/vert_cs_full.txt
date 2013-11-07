@@ -1,0 +1,11 @@
+VERT_CS [
+   "Newlyn",
+   VERT_DATUM [
+      "Ordnance Datum Newlyn",
+      2005,
+      AUTHORITY ["EPSG", "5101"]
+   ],
+   UNIT ["metre", 1.0, AUTHORITY ["EPSG", "9001"]],
+   AXIS ["Up", UP],
+   AUTHORITY ["EPSG", "5701"]
+]

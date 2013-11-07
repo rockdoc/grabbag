@@ -1,0 +1,16 @@
+GEOGCS [
+   # This CRS definition has nodes in non-standard order.
+   # Plus this comment, which is also non-standard!
+   "OSGB 1936",
+   AUTHORITY ["EPSG", "4277"],   # here's an inline comment
+   DATUM [
+      "OSGB 1936",
+      AUTHORITY ["EPSG", "6277"],
+      SPHEROID ["Airy 1830", 6377563.396, 299.3249646],
+      TOWGS84 [375, -111, 431, 0, 0, 0, 0]
+   ],
+   PRIMEM ["Greenwich", 0],
+   AXIS ["latitude", NORTH],
+   AXIS ["longitude", EAST],
+   UNIT ["degree", 0.0174532925199433]
+]

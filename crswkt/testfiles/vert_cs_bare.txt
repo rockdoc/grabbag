@@ -1,0 +1,5 @@
+VERT_CS [
+   "Newlyn",
+   VERT_DATUM ["Ordnance Datum Newlyn", 2005],
+   UNIT ["metre", 1.0]
+]

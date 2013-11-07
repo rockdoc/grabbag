@@ -1,0 +1,24 @@
+COMPD_CS ["OSGB 1936 / British National Grid + ODN",
+   PROJCS ["OSGB 1936 / British National Grid",
+     GEOGCS ["OSGB 1936",
+       DATUM ["OSGB 1936",
+         SPHEROID ["Airy 1830", 6377563.396, 299.3249646]
+       ],
+       PRIMEM ["Greenwich", 0],
+       UNIT ["degree", 0.0174532925199433]
+     ],
+     PROJECTION ["Transverse Mercator"],
+     PARAMETER ["False easting", 400000],
+     PARAMETER ["False northing", -100000],
+     PARAMETER ["Longitude of natural origin", -2.0],
+     PARAMETER ["Latitude of natural origin", 49.0],
+     PARAMETER ["Longitude of false origin", -7.556],
+     PARAMETER ["Latitude of false origin", 49.766],
+     PARAMETER ["Scale factor at natural origin", 0.9996012717],
+     UNIT ["metre", 1.0]
+   ],
+   VERT_CS ["Newlyn",
+     VERT_DATUM ["Ordnance Datum Newlyn", 2005],
+     UNIT ["metre", 1.0]
+   ]
+]
