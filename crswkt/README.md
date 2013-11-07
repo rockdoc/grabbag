@@ -4,7 +4,7 @@ crswktparser
 The crswktparser module includes classes for parsing and instantiating coordinate reference system
 descriptions encoded in OGC well-known text format, a.k.a. CRS WKT or OGC WKT.
 
-Please refer to the [wiki documentation](https://github.com/rockdoc/grabbag/wiki) for more
+Please refer to the [wiki documentation](https://github.com/rockdoc/grabbag/wiki/CRS-WKT-Parser) for more
 information about using the crswktparser module, dependencies on other python packages, and so on.
 Similar information can be found in the module's docstring.
 
